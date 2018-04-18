@@ -32,19 +32,15 @@ describe('Yarn API', () => {
         }
     };
 
-    it('saves and gets a yarn', () => {
-        return new Yarn(nirvana).save()
-            .then(saved => {
-                saved = saved.toJSON();
-                const { _id, __v } = saved;
+    it('saves a yarn (POST)', () => {
+        return request.post('/yarns')
+            .send(nirvana)
+            .then(({ body }) => {
+                const { _id, __v } = body;
                 assert.ok(_id);
-                assert.equal(__v, 0);
-                assert.deepEqual(saved, { _id, __v, ...nirvana });
-                nirvana = saved;
-                return Yarn.findById(saved._id).lean();
-            })
-            .then(found => {
-                assert.deepEqual(found, nirvana);
+                assert.strictEqual(__v, 0);
+                assert.deepEqual(body, { _id, __v, ...nirvana });
+                nirvana = body;
             });
     });
 });
