@@ -43,4 +43,19 @@ describe('Yarn API', () => {
                 nirvana = body;
             });
     });
+
+    const roundTrip = doc => JSON.parse(JSON.stringify(doc.toJSON()));
+
+    const getFields = ({ _id, name, brand }) => ({ _id, name, brand });
+
+    it('gets all yarns, returning a subset of fields (GET)', () => {
+        return Yarn.create(kouki).then(roundTrip)
+            .then(saved => {
+                kouki = saved;
+                return request.get('/yarns');
+            })
+            .then(({ body }) => {
+                assert.deepEqual(body, [nirvana, kouki].map(getFields));
+            });
+    });
 });
