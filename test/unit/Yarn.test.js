@@ -24,5 +24,18 @@ describe('Yarn model', () => {
         });
 
         assert.isUndefined(yarn.validateSync());
-    }); 
+    });
+
+    const getValidationErrors = validation => {
+        assert.isDefined(validation, 'expected validation errors');
+        return validation.errors;
+    };
+
+    it('has required fields', () => {
+        const yarn = new Yarn({});
+        const errors = getValidationErrors(yarn.validateSync());
+        assert.equal(Object.keys(errors).length, 2);
+        assert.equal(errors.name.kind, 'required');
+        assert.equal(errors.brand.kind, 'required');
+    });
 });
