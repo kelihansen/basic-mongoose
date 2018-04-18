@@ -65,4 +65,18 @@ describe('Yarn API', () => {
                 assert.deepEqual(body, nirvana);
             });
     });
+
+    it('updates a yarn (PUT)', () => {
+        nirvana.fibers = ['merino wool', 'cashmere'];
+
+        return request.put(`/yarns/${nirvana._id}`)
+            .send(nirvana)
+            .then(({ body }) => {
+                assert.deepEqual(body, nirvana);
+                return Yarn.findById(nirvana._id).then(roundTrip);
+            })
+            .then(updated => {
+                assert.deepEqual(updated, nirvana);
+            });
+    });
 });
