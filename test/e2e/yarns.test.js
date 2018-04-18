@@ -15,7 +15,7 @@ describe('Yarn API', () => {
         fibers: ['merino', 'cashmere'],
         attributes: {
             machineWashable: false,
-            windingRequired: true,
+            windingRequired: true
         }
     };
 
@@ -28,7 +28,7 @@ describe('Yarn API', () => {
         fibers: ['ramie', 'silk'],
         attributes: {
             machineWashable: false,
-            windingRequired: false,
+            windingRequired: false
         }
     };
 
