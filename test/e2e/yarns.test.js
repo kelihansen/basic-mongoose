@@ -58,4 +58,11 @@ describe('Yarn API', () => {
                 assert.deepEqual(body, [nirvana, kouki].map(getFields));
             });
     });
+
+    it('gets a yarn by id (GET)', () => {
+        return request.get(`/yarns/${nirvana._id}`)
+            .then(({ body }) => {
+                assert.deepEqual(body, nirvana);
+            });
+    });
 });
