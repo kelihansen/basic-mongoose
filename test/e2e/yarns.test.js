@@ -80,10 +80,20 @@ describe('Yarn API', () => {
             });
     });
 
-    it('queries yarns', () => {
+    it('queries yarns (GET)', () => {
         return request.get('/yarns?fibers=cashmere')
             .then(({ body }) => {
                 assert.deepEqual(body, [nirvana].map(getFields));
+            });
+    });
+
+    it('deletes a yarn (DELETE)', () => {
+        return request.delete(`/yarns/${kouki._id}`)
+            .then(() => {
+                return Yarn.findById(kouki._id);
+            })
+            .then(found => {
+                assert.isNull(found);
             });
     });
 });
