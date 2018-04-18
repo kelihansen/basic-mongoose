@@ -96,4 +96,11 @@ describe('Yarn API', () => {
                 assert.isNull(found);
             });
     });
+
+    it('returns a 404 if id not found (GET)', () => {
+        return request.get(`/yarns/${kouki._id}`)
+            .then(response => {
+                assert.strictEqual(response.status, 404);
+            });
+    });
 });
