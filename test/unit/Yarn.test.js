@@ -38,4 +38,18 @@ describe('Yarn model', () => {
         assert.equal(errors.name.kind, 'required');
         assert.equal(errors.brand.kind, 'required');
     });
+
+    it('has enum and min validation', () => {
+        const yarn = new Yarn({
+            name: 'test',
+            brand: 'test',
+            weight: 'fingerling',
+            yards: 0,
+            grams: 0
+        });
+        const errors = getValidationErrors(yarn.validateSync());
+        assert.equal(errors.weight.kind, 'enum');
+        assert.equal(errors.yards.kind, 'min');
+        assert.equal(errors.grams.kind, 'min');
+    });
 });
