@@ -79,4 +79,11 @@ describe('Yarn API', () => {
                 assert.deepEqual(updated, nirvana);
             });
     });
+
+    it('queries yarns', () => {
+        return request.get('/yarns?fibers=cashmere')
+            .then(({ body }) => {
+                assert.deepEqual(body, [nirvana].map(getFields));
+            });
+    });
 });
